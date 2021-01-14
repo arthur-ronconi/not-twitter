@@ -1,21 +1,25 @@
-import { useLayoutEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useState } from "react";
 import { Tweet } from "../Tweet";
 
 export const Timeline = () => {
   const [tweets, setTweets] = useState([]);
+  const reverseOrder = (array) => {
+    let temp = [];
+    for (let i = 0; i < array.length; i++) {
+      temp.unshift(array[i]);
+    }
+    return temp;
+  };
   const addTweetsToState = async () => {
     const response = await fetch("http://localhost:4000/posts", {
       method: "GET",
     });
     const tweetList = await response.json();
-    setTweets(await tweetList);
+    setTweets(reverseOrder(await tweetList));
   };
-  useLayoutEffect(() => {
+  useEffect(() => {
     addTweetsToState();
   }, []);
-  // useEffect(() => {
-  //   console.log(tweets);
-  // }, [tweets]);
 
   return (
     <div>

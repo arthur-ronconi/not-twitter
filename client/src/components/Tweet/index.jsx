@@ -8,6 +8,9 @@ export const Tweet = ({ body, author, date, id }) => {
           {date.substr(8, 2)}/{date.substr(5, 2)}/{date.substr(0, 4)} -{" "}
           {date.substr(11, 8)}
         </small>
+        <div>
+          <button className="btn btn-sm btn-danger">Delete</button>
+        </div>
       </div>
     </div>
   );

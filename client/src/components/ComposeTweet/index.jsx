@@ -3,6 +3,7 @@ import { Button } from "../Button";
 
 export const ComposeTweet = () => {
   const [tweetText, setTweetText] = useState();
+  const [name, setName] = useState();
   const [charsLeft, setCharsLeft] = useState();
   const totalChars = 280;
 
@@ -14,8 +15,33 @@ export const ComposeTweet = () => {
     }
   }, [tweetText]);
 
+  const postTweet = () => {
+    fetch("http://localhost:4000/posts", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        body: tweetText,
+        author: name,
+      }),
+    });
+  };
+
+  // const handlePost = async () => {
+  //   const res = await postTweet();
+  //   console.log(await res.json());
+  // };
+
   return (
     <div className="d-flex flex-column">
+      <input
+        type="text"
+        name="author"
+        className="form-control mb-2"
+        placeholder="Name"
+        onChange={(e) => {
+          setName(e.target.value);
+        }}
+      />
       <textarea
         className="mb-2 form-control"
         type="text"
@@ -23,10 +49,11 @@ export const ComposeTweet = () => {
           setTweetText(e.target.value);
         }}
         maxLength={totalChars}
+        placeholder="Write something on the wall"
       />
       <div className="d-flex flex-row justify-content-between align-items-center">
         <small className="text-light">{charsLeft}</small>
-        <Button>Tweet</Button>
+        <button onClick={() => postTweet()}>Tweet</button>
       </div>
     </div>
   );
