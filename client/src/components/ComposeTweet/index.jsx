@@ -32,7 +32,7 @@ export const ComposeTweet = () => {
   // };
 
   return (
-    <div className="d-flex flex-column">
+    <form className="d-flex flex-column">
       <input
         type="text"
         name="author"
@@ -53,8 +53,10 @@ export const ComposeTweet = () => {
       />
       <div className="d-flex flex-row justify-content-between align-items-center">
         <small className="text-light">{charsLeft}</small>
-        <button onClick={() => postTweet()}>Tweet</button>
+        <button type="submit" onClick={() => postTweet()}>
+          Tweet
+        </button>
       </div>
-    </div>
+    </form>
   );
 };
